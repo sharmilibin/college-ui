@@ -36,7 +36,7 @@ export const useGet = req => {
   return res;
 };
 
-export const usePost = useGet => {
+export const usePost = fn => {
   const [res, setRes] = useState({
     data: null,
     complete: false,

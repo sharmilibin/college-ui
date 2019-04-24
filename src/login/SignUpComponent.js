@@ -7,7 +7,7 @@ export const SignUp = () => {
   const [password, setPassword] = useState("");
 
   return (
-    <form>
+    <form >
       <input
         value={firstName}
         onChange={e => setFirstName(e.target.value)}
