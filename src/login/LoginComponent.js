@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makePostRequest } from '../utilities/ApiHelpers';
 
 export const Login = () => {
@@ -14,18 +14,12 @@ export const Login = () => {
   };
 
   const handleSubmit = e => {
+    console.log(values);
+    makePostRequest('http://localhost:3001/login', values).then(response => {
+      console.log(response);
+    });
     e.preventDefault();
-    console.log(values);
   };
-
-  useEffect(() => {
-    console.log(values);
-    if (values.length !== 5) {
-      makePostRequest('http://localhost:3001/login', values).then(response => {
-        console.log(response);
-      });
-    }
-  }, [values]);
 
   return (
     <form onSubmit={handleSubmit}>
