@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { makePostRequest } from '../utilities/ApiHelpers';
+const base64 = require('base-64');
 
 export const Login = () => {
   const [values, setValues] = useState({});
@@ -12,12 +13,15 @@ export const Login = () => {
       [event.target.name]: event.target.value
     }));
   };
-
   const handleSubmit = e => {
     console.log(values);
-    makePostRequest('http://localhost:3001/login', values).then(response => {
-      console.log(response);
-    });
+    let auth = 'Basic ' + base64.encode(values.userId + ':' + values.password);
+
+    makePostRequest('http://localhost:3001/login', values, auth).then(
+      response => {
+        console.log(response);
+      }
+    );
     e.preventDefault();
   };
 
