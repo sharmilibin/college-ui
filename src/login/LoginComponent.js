@@ -19,9 +19,11 @@ export const Login = () => {
 
     makePostRequest('http://localhost:3001/login', values, auth).then(
       response => {
-        console.log(response);
+        console.log('Print Response===>', response.data);
+        console.log('Print Header ==>', response.headers);
       }
     );
+
     e.preventDefault();
   };
 
