@@ -17,12 +17,10 @@ export const Login = () => {
     console.log(values);
     let auth = 'Basic ' + base64.encode(values.userId + ':' + values.password);
 
-    makePostRequest('http://localhost:3001/login', values, auth).then(
-      response => {
-        console.log('Print Response===>', response.data);
-        console.log('Print Header ==>', response.headers);
-      }
-    );
+    makePostRequest('/login', values, auth).then(response => {
+      console.log('Print Response===>', response.data);
+      console.log('Print Header ==>', response.headers);
+    });
 
     e.preventDefault();
   };
