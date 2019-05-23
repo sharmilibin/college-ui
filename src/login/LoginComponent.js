@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { makePostRequest } from '../utilities/ApiHelpers';
-const base64 = require('base-64');
+import React, { useState } from "react";
+import { makePostRequest, makeGetRequest } from "../utilities/ApiHelpers";
+const base64 = require("base-64");
 
 export const Login = () => {
   const [values, setValues] = useState({});
@@ -15,12 +15,14 @@ export const Login = () => {
   };
   const handleSubmit = e => {
     console.log(values);
-    let auth = 'Basic ' + base64.encode(values.userId + ':' + values.password);
 
-    makePostRequest('/login', values, auth).then(response => {
-      console.log('Print Response===>', response.data);
-      console.log('Print Header ==>', response.headers);
+    makePostRequest("/api/auth/signin", values).then(response => {
+      console.log("Print Response===>", response.data);
+      console.log("Print Header ==>", response.headers);
     });
+    // makeGetRequest("/students/{studentID}", values).then(response => {
+    //   console.log("print Get Respose ", response.data);
+    // });
 
     e.preventDefault();
   };
@@ -28,22 +30,22 @@ export const Login = () => {
   return (
     <form onSubmit={handleSubmit}>
       <input
-        value={values.userId || ''}
+        value={values.usernameOrEmail || ""}
         onChange={handleChange}
-        placeholder='Enter your User ID'
-        type='text'
-        name='userId'
+        placeholder="username or email"
+        type="text"
+        name="usernameOrEmail"
         required
       />
       <input
-        value={values.password || ''}
+        value={values.password || ""}
         onChange={handleChange}
-        placeholder='Password'
-        type='password'
-        name='password'
+        placeholder="Password"
+        type="password"
+        name="password"
         required
       />
-      <button type='submit'>Submit</button>
+      <button type="submit">Submit</button>
     </form>
   );
 };

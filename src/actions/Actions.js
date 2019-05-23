@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 
-export const useGet = req => {
+/*export const useGet = req => {
   const [res, setRes] = useState({
     data: null,
     complete: false,
@@ -72,4 +72,16 @@ export const usePost = fn => {
       );
   }, [req]);
   return [res, (...args) => setReq(fn(...args))];
+};*/
+var options = {
+  withCredentials: true,
+  headers: { Authorization: "Bearer token-value" }
 };
+axios
+  .post("http://localhost:8080/college-api/api/auth/login", null, options)
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error(error);
+  });

@@ -1,46 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { makePostRequest } from "../utilities/ApiHelpers";
 
 export const SignUp = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [values, setValues] = useState({});
 
+  const handleChange = event => {
+    event.persist();
+
+    setValues(values => ({
+      ...values,
+      [event.target.name]: event.target.value
+    }));
+  };
+  const handleSubmit = e => {
+    console.log(values);
+    makePostRequest("/api/auth/signup", values).then(response => {
+      console.log("Print Response===>", response.data);
+      console.log("Print Header ==>", response.headers);
+    });
+
+    e.preventDefault();
+  };
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <input
-        value={firstName}
-        onChange={e => setFirstName(e.target.value)}
-        placeholder='First name'
-        type='text'
-        name='firstName'
+        value={values.username || ""}
+        onChange={handleChange}
+        placeholder="Username"
+        type="text"
+        name="username"
         required
       />
       <input
-        value={lastName}
-        onChange={e => setLastName(e.target.value)}
-        placeholder='Last name'
-        type='text'
-        name='lastName'
+        value={values.email || ""}
+        onChange={handleChange}
+        placeholder="email"
+        type="text"
+        name="email"
         required
       />
       <input
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        placeholder='Email address'
-        type='email'
-        name='email'
+        value={values.password || ""}
+        onChange={handleChange}
+        placeholder="password"
+        type="password"
+        name="password"
         required
       />
       <input
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        placeholder='Password'
-        type='password'
-        name='password'
+        value={values.role || ""}
+        onChange={handleChange}
+        placeholder="role"
+        type="text"
+        name="role"
         required
       />
-      <button type='submit'>Submit</button>
+      <button type="submit">Submit</button>
     </form>
   );
 };
